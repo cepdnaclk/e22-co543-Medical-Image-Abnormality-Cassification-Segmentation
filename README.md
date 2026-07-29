@@ -1,1 +1,7 @@
-# e22-co5430-medical-image-abnormality-classification-segmentation
+___
+# DELETE THIS INSTRUCTIONS AND ADD A SHORT INTRODUCTION ABOUT YOUR PROJECT
+___
+
+## Please refer the instructions in below URL:
+
+https://projects.ce.pdn.ac.lk/docs/how-to-add-a-project

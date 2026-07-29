@@ -1,0 +1,37 @@
+{
+    "team": [
+        {
+            "name": "Hansara S. H. S.",
+            "email": "e22130@eng.pdn.ac.lk",
+            "eNumber": "E/22/130"
+        },
+        {
+            "name": "H.M. Liyanage",
+            "email": "e22211@eng.pdn.ac.lk",
+            "eNumber": "E/22/211"
+        },
+        {
+            "name": "D.M.N.N. Bandara",
+            "email": "e22044@eng.pdn.ac.lk",
+            "eNumber": "E/22/044"
+        },
+        {
+            "name": "Weerasinghe W. P. T. H.",
+            "email": "e22421@eng.pdn.ac.lk",
+            "eNumber": "E/22/421"
+        }
+    ],
+    "supervisors": [
+        {
+            "name": "Dr. Supervisor 1",
+            "email": "email@eng.pdn.ac.lk"
+        },
+        {
+            "name": "Supervisor 2",
+            "email": "email@eng.pdn.ac.lk"
+        }
+    ],
+    "tags": ["Image Processing", "Web"],
+    "image":"cover_page.jpg",
+    "thumbnail":"thumbnail.jpg"
+}
