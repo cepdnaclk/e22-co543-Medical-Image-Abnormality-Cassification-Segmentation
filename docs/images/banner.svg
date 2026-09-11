@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bannerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+    <filter id="bannerGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1200" height="320" rx="16" fill="url(#bannerBg)" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Ambient Glow Elements -->
+  <circle cx="1100" cy="60" r="150" fill="#38bdf8" fill-opacity="0.08" filter="url(#bannerGlow)" />
+  <circle cx="100" cy="270" r="130" fill="#8b5cf6" fill-opacity="0.08" filter="url(#bannerGlow)" />
+
+  <!-- University Pill Badge -->
+  <g transform="translate(50, 32)">
+    <rect width="360" height="28" rx="14" fill="#1e293b" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.5"/>
+    <circle cx="18" cy="14" r="4.5" fill="#34d399" />
+    <text x="190" y="14" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1" dominant-baseline="middle" text-anchor="middle">UNIVERSITY OF PERADENIYA • CO543</text>
+  </g>
+
+  <!-- Header Titles -->
+  <g transform="translate(50, 95)">
+    <text x="0" y="24" fill="url(#textGrad)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="30" font-weight="800" letter-spacing="-0.5" dominant-baseline="middle">Brain Tumor MRI Classification &amp; Localization</text>
+    <text x="0" y="54" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="400" dominant-baseline="middle">Automated 5-Stage Preprocessing, Dual-Backbone Deep Learning, and Grad-CAM Visual Explainability</text>
+  </g>
+
+  <!-- Feature Metric Badges: 5 Centered, Evenly Spaced Cards (Width 204px, Gap 20px, Total 1100px) -->
+  <g transform="translate(50, 184)">
+    <!-- Badge 1: Test Accuracy -->
+    <g transform="translate(0, 0)">
+      <rect width="204" height="60" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2"/>
+      <text x="102" y="20" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" letter-spacing="0.8" dominant-baseline="middle" text-anchor="middle">TEST ACCURACY</text>
+      <text x="102" y="42" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="800" dominant-baseline="middle" text-anchor="middle">95.69%</text>
+    </g>
+
+    <!-- Badge 2: Preprocessing Gain -->
+    <g transform="translate(224, 0)">
+      <rect width="204" height="60" rx="10" fill="#0f172a" stroke="#34d399" stroke-width="1.2"/>
+      <text x="102" y="20" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" letter-spacing="0.8" dominant-baseline="middle" text-anchor="middle">ABLATION GAIN</text>
+      <text x="102" y="42" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" dominant-baseline="middle" text-anchor="middle">+22.50% (73% → 96%)</text>
+    </g>
+
+    <!-- Badge 3: EfficientNet-B0 Compression -->
+    <g transform="translate(448, 0)">
+      <rect width="204" height="60" rx="10" fill="#0f172a" stroke="#c084fc" stroke-width="1.2"/>
+      <text x="102" y="20" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" letter-spacing="0.8" dominant-baseline="middle" text-anchor="middle">EFFICIENTNET-B0</text>
+      <text x="102" y="42" fill="#c084fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" dominant-baseline="middle" text-anchor="middle">-64% Params • -79% FLOPs</text>
+    </g>
+
+    <!-- Badge 4: Explainability -->
+    <g transform="translate(672, 0)">
+      <rect width="204" height="60" rx="10" fill="#0f172a" stroke="#fb7185" stroke-width="1.2"/>
+      <text x="102" y="20" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" letter-spacing="0.8" dominant-baseline="middle" text-anchor="middle">EXPLAINABILITY</text>
+      <text x="102" y="42" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" dominant-baseline="middle" text-anchor="middle">Grad-CAM Heatmaps</text>
+    </g>
+
+    <!-- Badge 5: Compute Platform -->
+    <g transform="translate(896, 0)">
+      <rect width="204" height="60" rx="10" fill="#0f172a" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="102" y="20" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" letter-spacing="0.8" dominant-baseline="middle" text-anchor="middle">COMPUTE PLATFORM</text>
+      <text x="102" y="42" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="800" dominant-baseline="middle" text-anchor="middle">RTX 6000 Ada (51GB)</text>
+    </g>
+  </g>
+
+  <!-- Department Footer Line -->
+  <g transform="translate(50, 278)">
+    <text x="0" y="0" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" dominant-baseline="middle">Department of Computer Engineering • Faculty of Engineering, University of Peradeniya</text>
+  </g>
+</svg>

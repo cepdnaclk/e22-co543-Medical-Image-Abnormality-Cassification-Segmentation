@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgBench" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="cardBench" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="resGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="effGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <rect width="1100" height="520" fill="url(#bgBench)" />
+
+  <!-- Header -->
+  <g transform="translate(50, 35)">
+    <text x="0" y="24" fill="#38bdf8" font-family="sans-serif" font-size="12" font-weight="700" letter-spacing="1.5">EMPIRICAL EVALUATION ON 1,600 TEST SCANS</text>
+    <text x="0" y="52" fill="#f8fafc" font-family="sans-serif" font-size="22" font-weight="800">Model Architecture Benchmarking: ResNet-18 vs. EfficientNet-B0</text>
+    <text x="0" y="74" fill="#94a3b8" font-family="sans-serif" font-size="13">Rigorous head-to-head comparison across diagnostic accuracy, model size, FLOPs, and inference speed</text>
+  </g>
+
+  <!-- ResNet-18 Card -->
+  <g transform="translate(50, 115)" filter="url(#shadow)">
+    <rect width="470" height="360" rx="14" fill="url(#cardBench)" stroke="#334155" stroke-width="1.2" />
+    <rect width="470" height="5" rx="2" fill="url(#resGrad)" />
+
+    <g transform="translate(24, 25)">
+      <text x="0" y="20" fill="#38bdf8" font-family="sans-serif" font-size="18" font-weight="800">ResNet-18 (Baseline Backbone)</text>
+      <text x="0" y="40" fill="#94a3b8" font-family="sans-serif" font-size="12">Residual Learning Framework with identity shortcut mappings</text>
+
+      <!-- Metrics Grid -->
+      <g transform="translate(0, 60)">
+        <rect width="200" height="70" rx="8" fill="#0f172a" stroke="#1e293b"/>
+        <text x="16" y="24" fill="#94a3b8" font-family="sans-serif" font-size="11">TEST ACCURACY</text>
+        <text x="16" y="54" fill="#38bdf8" font-family="sans-serif" font-size="24" font-weight="800">95.69%</text>
+
+        <rect x="220" y="0" width="200" height="70" rx="8" fill="#0f172a" stroke="#1e293b"/>
+        <text x="236" y="24" fill="#94a3b8" font-family="sans-serif" font-size="11">MACRO F1-SCORE</text>
+        <text x="236" y="54" fill="#f8fafc" font-family="sans-serif" font-size="24" font-weight="800">0.9563</text>
+      </g>
+
+      <!-- Detailed Specs -->
+      <g transform="translate(0, 150)">
+        <text x="0" y="18" fill="#cbd5e1" font-family="sans-serif" font-size="13">• Macro Precision:</text>
+        <text x="420" y="18" fill="#f8fafc" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="end">0.9588</text>
+
+        <text x="0" y="44" fill="#cbd5e1" font-family="sans-serif" font-size="13">• Macro Recall:</text>
+        <text x="420" y="44" fill="#f8fafc" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="end">0.9569</text>
+
+        <text x="0" y="70" fill="#cbd5e1" font-family="sans-serif" font-size="13">• Parameter Count:</text>
+        <text x="420" y="70" fill="#f8fafc" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="end">11.18 M</text>
+
+        <text x="0" y="96" fill="#cbd5e1" font-family="sans-serif" font-size="13">• Computational Complexity:</text>
+        <text x="420" y="96" fill="#f8fafc" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="end">1.81 GFLOPs</text>
+
+        <text x="0" y="122" fill="#cbd5e1" font-family="sans-serif" font-size="13">• Inference Latency:</text>
+        <text x="420" y="122" fill="#f8fafc" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="end">5.04 ms/image</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- EfficientNet-B0 Card -->
+  <g transform="translate(580, 115)" filter="url(#shadow)">
+    <rect width="470" height="360" rx="14" fill="url(#cardBench)" stroke="#10b981" stroke-width="1.5" />
+    <rect width="470" height="5" rx="2" fill="url(#effGrad)" />
+
+    <g transform="translate(24, 25)">
+      <text x="0" y="20" fill="#34d399" font-family="sans-serif" font-size="18" font-weight="800">EfficientNet-B0 (Modern Architecture)</text>
+      <text x="0" y="40" fill="#94a3b8" font-family="sans-serif" font-size="12">Compound scaling of Depth, Width, and Resolution with MBConv</text>
+
+      <!-- Metrics Grid -->
+      <g transform="translate(0, 60)">
+        <rect width="200" height="70" rx="8" fill="#0f172a" stroke="#1e293b"/>
+        <text x="16" y="24" fill="#94a3b8" font-family="sans-serif" font-size="11">TEST ACCURACY</text>
+        <text x="16" y="54" fill="#34d399" font-family="sans-serif" font-size="24" font-weight="800">95.62%</text>
+
+        <rect x="220" y="0" width="200" height="70" rx="8" fill="#0f172a" stroke="#1e293b"/>
+        <text x="236" y="24" fill="#94a3b8" font-family="sans-serif" font-size="11">MACRO F1-SCORE</text>
+        <text x="236" y="54" fill="#f8fafc" font-family="sans-serif" font-size="24" font-weight="800">0.9555</text>
+      </g>
+
+      <!-- Detailed Specs -->
+      <g transform="translate(0, 150)">
+        <text x="0" y="18" fill="#cbd5e1" font-family="sans-serif" font-size="13">• Macro Precision:</text>
+        <text x="420" y="18" fill="#f8fafc" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="end">0.9587</text>
+
+        <text x="0" y="44" fill="#cbd5e1" font-family="sans-serif" font-size="13">• Macro Recall:</text>
+        <text x="420" y="44" fill="#f8fafc" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="end">0.9562</text>
+
+        <text x="0" y="70" fill="#cbd5e1" font-family="sans-serif" font-size="13">• Parameter Count:</text>
+        <text x="420" y="70" fill="#34d399" font-family="sans-serif" font-size="13" font-weight="800" text-anchor="end">4.01 M (-64.1%)</text>
+
+        <text x="0" y="96" fill="#cbd5e1" font-family="sans-serif" font-size="13">• Computational Complexity:</text>
+        <text x="420" y="96" fill="#34d399" font-family="sans-serif" font-size="13" font-weight="800" text-anchor="end">0.39 GFLOPs (-78.5%)</text>
+
+        <text x="0" y="122" fill="#cbd5e1" font-family="sans-serif" font-size="13">• Inference Latency:</text>
+        <text x="420" y="122" fill="#f8fafc" font-family="sans-serif" font-size="13" font-weight="700" text-anchor="end">5.40 ms/image</text>
+      </g>
+
+      <rect x="0" y="280" width="422" height="26" rx="6" fill="#34d399" fill-opacity="0.12" stroke="#34d399" stroke-width="0.8"/>
+      <text x="211" y="297" fill="#34d399" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">★ Matches Baseline Accuracy while cutting FLOPs by ~79%</text>
+    </g>
+  </g>
+</svg>
