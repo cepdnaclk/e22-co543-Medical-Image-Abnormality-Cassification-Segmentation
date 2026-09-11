@@ -31,7 +31,7 @@
             "email": "email@eng.pdn.ac.lk"
         }
     ],
-    "tags": ["Image Processing", "Web"],
-    "image":"cover_page.jpg",
-    "thumbnail":"thumbnail.jpg"
+    "tags": ["Computer Vision", "Deep Learning", "Medical Image Processing", "PyTorch", "Explainable AI"],
+    "image": "banner.svg",
+    "thumbnail": "banner.svg"
 }

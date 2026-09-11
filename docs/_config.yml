@@ -1,9 +1,9 @@
 # This theme is based on https://github.com/jekyll/minima
 # Please refer above link to know the available configurations
 
-title: ""
+title: "Medical Image Abnormality Classification & Spatial Localization System"
 remote_theme: cepdnaclk/eYY-project-theme
-description: ""
+description: "Brain Tumor MRI Classification, 4-Stage Preprocessing Engine, Dual-Backbone Deep Learning, and Grad-CAM Visual Explainability"
 markdown: kramdown
 
 kramdown:
