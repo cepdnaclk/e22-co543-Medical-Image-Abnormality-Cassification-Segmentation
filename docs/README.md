@@ -89,7 +89,8 @@ To prevent data contamination and guarantee unbiased evaluation, scans are parti
 * **Validation Set:** **1,120 scans** (Stratified 20% split from training pool: 330 Glioma, 335 Meningioma, 399 No Tumor, 364 Pituitary).
 * **Class Balancing:** To counterbalance class frequency variations during optimization, dynamic inverse-frequency weighting is applied:
 
-$$\text{Weight}_c = \frac{N_{\text{total}}}{C \cdot N_c}$$
+> **Weight<sub>c</sub> = N<sub>total</sub> / (C × N<sub>c</sub>)**  
+> *(where `N_total` is the total training dataset count, `C = 4` is the number of classes, and `N_c` is the sample count for class `c`)*
 
 ---
 
@@ -106,23 +107,23 @@ Raw clinical MRI acquisitions routinely exhibit non-standardized black borders, 
 ### Algorithmic Breakdown
 
 1. **Contour-Based Skull Stripping (`crop_brain_contour`):**
-   * Grayscale conversion and Gaussian smoothing ($5 \times 5$, $\sigma = 0$) to eliminate salt-and-pepper noise.
-   * Binary thresholding via Otsu's method combined with morphological erosion and dilation ($2$ iterations, $3 \times 3$ kernel).
+   * Grayscale conversion and Gaussian smoothing (5 × 5, σ = 0) to eliminate salt-and-pepper noise.
+   * Binary thresholding via Otsu's method combined with morphological erosion and dilation (2 iterations, 3 × 3 kernel).
    * External contour extraction to identify the largest cranial tissue boundary.
    * Tight bounding box crop that discards 40%–60% of uninformative dark background pixels.
 
 2. **Edge-Preserving Bilateral Denoising:**
-   * Applied with diameter $d = 9$, $\sigma_{\text{color}} = 75$, $\sigma_{\text{space}} = 75$.
+   * Applied with diameter `d = 9`, `σ_color = 75`, `σ_space = 75`.
    * Replaces pixel values via a bilateral Gaussian weight combining spatial proximity and radiometric photometric distance, effectively smoothing acquisition grain without degrading sharp tumor-brain margins.
 
 3. **CIE LAB Contrast Limited Adaptive Histogram Equalization (CLAHE):**
    * Translates images into the perceptual **CIE LAB** color space.
-   * Confines adaptive equalization exclusively to the Luminance ($L^*$) channel with `clipLimit = 2.0` and `tileGridSize = (8, 8)` to prevent noise amplification in uniform brain tissue.
-   * Re-merges with chromaticity channels ($a^*, b^*$) and converts back to RGB.
+   * Confines adaptive equalization exclusively to the Luminance (`L*`) channel with `clipLimit = 2.0` and `tileGridSize = (8, 8)` to prevent noise amplification in uniform brain tissue.
+   * Re-merges with chromaticity channels (`a*`, `b*`) and converts back to RGB.
 
 4. **Standardization & ImageNet Normalization:**
-   * Resizes via area interpolation (`cv2.INTER_AREA`) to a standardized $224 \times 224 \times 3$ tensor.
-   * Standardizes channel distributions according to ImageNet statistics ($\mu = [0.485, 0.456, 0.406]$, $\sigma = [0.229, 0.224, 0.225]$).
+   * Resizes via area interpolation (`cv2.INTER_AREA`) to a standardized 224 × 224 × 3 tensor.
+   * Standardizes channel distributions according to ImageNet statistics (mean = `[0.485, 0.456, 0.406]`, std = `[0.229, 0.224, 0.225]`).
 
 ---
 
@@ -132,12 +133,12 @@ To simulate variable clinical imaging protocols and patient positioning inside m
 
 | Transform | Configuration | Clinical Rationale |
 | :--- | :--- | :--- |
-| **Horizontal Flip** | $p = 0.5$ | Leverages the bilateral anatomical symmetry of cerebral hemispheres |
-| **Vertical Flip** | $p = 0.3$ | Accommodates variable slice orientations during coronal and sagittal acquisition |
-| **ShiftScaleRotate** | Shift $\pm 8\%$, Scale $\pm 10\%$, Angle $\pm 25^\circ$, $p = 0.7$ | Replicates slight patient head tilt and distance variance within the head coil |
-| **ColorJitter** | Brightness $\pm 0.2$, Contrast $\pm 0.2$, $p = 0.5$ | Models magnetic flux differences between 1.5T and 3.0T MRI scanners |
-| **GaussianBlur** | Kernel size $(3, 5)$, $p = 0.2$ | Simulates minor patient motion and phase-encoding ghosting artifacts |
-| **CoarseDropout** | Max holes $= 6$, Max size $= 16 \times 16$, $p = 0.3$ | Prevents deep feature co-adaptation; mimics focal signal dropouts |
+| **Horizontal Flip** | `p = 0.5` | Leverages the bilateral anatomical symmetry of cerebral hemispheres |
+| **Vertical Flip** | `p = 0.3` | Accommodates variable slice orientations during coronal and sagittal acquisition |
+| **ShiftScaleRotate** | `Shift ±8%, Scale ±10%, Angle ±25°, p = 0.7` | Replicates slight patient head tilt and distance variance within the head coil |
+| **ColorJitter** | `Brightness ±0.2, Contrast ±0.2, p = 0.5` | Models magnetic flux differences between 1.5T and 3.0T MRI scanners |
+| **GaussianBlur** | `Kernel size (3, 5), p = 0.2` | Simulates minor patient motion and phase-encoding ghosting artifacts |
+| **CoarseDropout** | `Max holes = 6, Max size = 16 × 16, p = 0.3` | Prevents deep feature co-adaptation; mimics focal signal dropouts |
 
 ---
 
@@ -147,20 +148,21 @@ MedImgSys evaluates two distinct neural network paradigms to establish the trade
 
 ### 1. ResNet-18 (Residual Learning Baseline)
 * **Design:** 18-layer residual architecture using identity skip connections:
-  $$\mathbf{y} = \mathcal{F}(\mathbf{x}, \{W_i\}) + \mathbf{x}$$
+  > **y = F(x, {W<sub>i</sub>}) + x**
 * **Advantage:** Guarantees direct gradient propagation during backpropagation, circumventing vanishing gradient problems.
 * **Complexity:** **11.18 Million** parameters | **1.81 GFLOPs**.
 
 ### 2. EfficientNet-B0 (Compound Scaling Modern Benchmark)
 * **Design:** Utilizes inverted residual bottleneck blocks (**MBConv**) with depthwise separable convolutions and Squeeze-and-Excitation (**SE**) channel-attention modules.
 * **Compound Scaling:** Systematically balances network depth, channel width, and input resolution:
-  $$d = \alpha^\phi, \quad w = \beta^\phi, \quad r = \gamma^\phi \quad \text{s.t.} \quad \alpha \cdot \beta^2 \cdot \gamma^2 \approx 2$$
+  > **depth: d = α<sup>φ</sup>, width: w = β<sup>φ</sup>, resolution: r = γ<sup>φ</sup>**  
+  > *(subject to α · β² · γ² ≈ 2)*
 * **Complexity:** **4.01 Million** parameters (**64.1% reduction**) | **0.39 GFLOPs** (**78.5% reduction**).
 
 ### Training Configuration
 
-* **Optimizer:** `AdamW` (Initial $\eta = 3 \times 10^{-4}$, weight decay $= 1 \times 10^{-4}$)
-* **Learning Rate Schedule:** `CosineAnnealingLR` ($T_{\max} = 10$, $\eta_{\min} = 1 \times 10^{-6}$)
+* **Optimizer:** `AdamW` (Initial learning rate = 3 × 10⁻⁴, weight decay = 1 × 10⁻⁴)
+* **Learning Rate Schedule:** `CosineAnnealingLR` (T_max = 10 epochs, min_lr = 1 × 10⁻⁶)
 * **Precision:** Automatic Mixed Precision (AMP) via PyTorch `autocast` and `GradScaler`
 * **Hardware:** NVIDIA RTX 6000 Ada Generation (51.5 GB VRAM)
 * **Batch Size:** 32 | **Epochs:** 10
@@ -186,10 +188,10 @@ Both architectures were subjected to rigorous evaluation against the **1,600 uns
 
 ### Clinical & Architectural Insights
 
-1. **Statistical Accuracy Parity:** EfficientNet-B0 matches ResNet-18 within $0.07\%$ test accuracy (**95.62%** vs **95.69%**) and $0.0008$ macro F1-score (**0.9555** vs **0.9563**).
+1. **Statistical Accuracy Parity:** EfficientNet-B0 matches ResNet-18 within **0.07%** test accuracy (**95.62%** vs **95.69%**) and **0.0008** macro F1-score (**0.9555** vs **0.9563**).
 2. **Computational Footprint Reduction:** EfficientNet-B0 eliminates **64.1%** of parameter weight storage (16.4 MB vs 44.8 MB) and cuts computational operations by **78.5%** (0.39 vs 1.81 GFLOPs).
 3. **Deployment Strategy:**
-   * **Centralized Hospital PACS Server:** ResNet-18 yields minimal batch latency ($5.04\text{ ms/img}$) for high-throughput radiology processing queues.
+   * **Centralized Hospital PACS Server:** ResNet-18 yields minimal batch latency (**5.04 ms/image**) for high-throughput radiology processing queues.
    * **Point-of-Care & Mobile MRI Consoles:** EfficientNet-B0 provides an optimal footprint for resource-constrained edge workstations, tablets, and embedded hardware.
 
 ---
@@ -229,19 +231,23 @@ To provide verifiable spatial interpretability without manual pixel-level segmen
 
 </div>
 
-### Mathematical Formulation
+### Mathematical Formulation & Algorithmic Steps
 
-1. **Target Feature Map Extraction:** Compute the gradient of the predicted class score $y^c$ with respect to the activation maps $A^k$ of the final convolutional layer (`resnet18.layer4[-1]` or `effnet.features[-1]`):
-   $$\frac{\partial y^c}{\partial A^k}$$
+1. **Target Feature Map Gradients:**  
+   Compute the gradient of the predicted class score `y^c` with respect to feature activation maps `A^k` of the final convolutional layer (`resnet18.layer4[-1]` or `effnet.features[-1]`):  
+   > **Gradient = ∂(y<sup>c</sup>) / ∂(A<sup>k</sup>)**
 
-2. **Neuron Importance Weights ($\alpha_k^c$):** Apply global average pooling over spatial dimensions $(i, j)$ across height $U$ and width $V$:
-   $$\alpha_k^c = \frac{1}{U \cdot V} \sum_{i=1}^{U} \sum_{j=1}^{V} \frac{\partial y^c}{\partial A_{i,j}^k}$$
+2. **Neuron Importance Weights (α<sub>k</sub><sup>c</sup>):**  
+   Apply Global Average Pooling (GAP) across spatial height `U` and width `V`:  
+   > **α<sub>k</sub><sup>c</sup> = (1 / (U × V)) × ∑<sub>i</sub> ∑<sub>j</sub> [ ∂(y<sup>c</sup>) / ∂(A<sub>i,j</sub><sup>k</sup>) ]**
 
-3. **Linear Combination and Rectification:** Compute the weighted sum of forward feature maps and apply a rectified linear unit (ReLU) to isolate features with positive influence:
-   $$L_{\text{Grad-CAM}}^c = \text{ReLU}\left(\sum_{k} \alpha_k^c A^k\right)$$
+3. **Linear Combination and Rectification (ReLU):**  
+   Compute the importance-weighted sum of forward activation maps, passing through a ReLU activation to preserve features that contribute positively to the target class:  
+   > **L<sub>Grad-CAM</sub><sup>c</sup> = ReLU( ∑<sub>k</sub> α<sub>k</sub><sup>c</sup> · A<sup>k</sup> )**
 
-4. **Heatmap Generation & Blending:** Normalize $L_{\text{Grad-CAM}}^c$ to $[0, 1]$, upsample to $224 \times 224$, apply `cv2.COLORMAP_JET`, and blend with the preprocessed anatomical scan:
-   $$I_{\text{overlay}} = 0.4 \cdot I_{\text{heatmap}} + 0.6 \cdot I_{\text{anatomical}}$$
+4. **Heatmap Normalization & Color Blending:**  
+   Normalize the activation map to `[0, 1]`, upsample to `224 × 224`, apply OpenCV `COLORMAP_JET`, and blend with the preprocessed anatomical MRI scan:  
+   > **I<sub>overlay</sub> = 0.4 × I<sub>heatmap</sub> + 0.6 × I<sub>anatomical</sub>**
 
 ### Clinical Validation Across Classes
 
