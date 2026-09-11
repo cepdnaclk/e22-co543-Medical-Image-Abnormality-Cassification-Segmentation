@@ -357,12 +357,34 @@ pip install albumentations opencv-python numpy pandas matplotlib seaborn scikit-
 
 This project was developed by **Group 14** as part of the **CO5430 Computer Vision** course at the **Department of Computer Engineering, University of Peradeniya**:
 
-| Registration Number | Student Name | Institutional Email |
-| :---: | :--- | :--- |
-| **E/22/130** | **Hansara S. H. S.** | [e22130@eng.pdn.ac.lk](mailto:e22130@eng.pdn.ac.lk) |
-| **E/22/211** | **H. M. Liyanage** | [e22211@eng.pdn.ac.lk](mailto:e22211@eng.pdn.ac.lk) |
-| **E/22/044** | **D. M. N. N. Bandara** | [e22044@eng.pdn.ac.lk](mailto:e22044@eng.pdn.ac.lk) |
-| **E/22/421** | **Weerasinghe W. P. T. H.** | [e22421@eng.pdn.ac.lk](mailto:e22421@eng.pdn.ac.lk) |
+<table align="center">
+  <tr>
+    <td align="center" width="25%">
+      <img src="https://people.ce.pdn.ac.lk/images/students/e22/e22130.jpg" alt="Hansara S. H. S." width="140" height="140" style="border-radius: 50%; object-fit: cover;"/><br />
+      <b>Hansara S. H. S.</b><br />
+      E/22/130<br />
+      <a href="mailto:e22130@eng.pdn.ac.lk">e22130@eng.pdn.ac.lk</a>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://people.ce.pdn.ac.lk/images/students/e22/e22211.jpg" alt="H. M. Liyanage" width="140" height="140" style="border-radius: 50%; object-fit: cover;"/><br />
+      <b>H. M. Liyanage</b><br />
+      E/22/211<br />
+      <a href="mailto:e22211@eng.pdn.ac.lk">e22211@eng.pdn.ac.lk</a>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://people.ce.pdn.ac.lk/images/students/e22/e22044.jpg" alt="D. M. N. N. Bandara" width="140" height="140" style="border-radius: 50%; object-fit: cover;"/><br />
+      <b>D. M. N. N. Bandara</b><br />
+      E/22/044<br />
+      <a href="mailto:e22044@eng.pdn.ac.lk">e22044@eng.pdn.ac.lk</a>
+    </td>
+    <td align="center" width="25%">
+      <img src="https://people.ce.pdn.ac.lk/images/students/e22/e22421.jpg" alt="Weerasinghe W. P. T. H." width="140" height="140" style="border-radius: 50%; object-fit: cover;"/><br />
+      <b>Weerasinghe W. P. T. H.</b><br />
+      E/22/421<br />
+      <a href="mailto:e22421@eng.pdn.ac.lk">e22421@eng.pdn.ac.lk</a>
+    </td>
+  </tr>
+</table>
 
 ---
 
