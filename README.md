@@ -148,9 +148,9 @@ $$\text{depth: } d = \alpha^\phi, \quad \text{width: } w = \beta^\phi, \quad \te
 - Parameter Count: **4.01 Million (-64.1% reduction)** | Complexity: **0.39 GFLOPs (-78.5% reduction)**.
 
 ### Optimization Protocol
-- **Optimizer:** `AdamW` ($\text{lr} = 3 \times 10^{-4}$, $\text{weight\_decay} = 1 \times 10^{-4}$)
-- **Learning Rate Scheduler:** `CosineAnnealingLR` ($T_{\max} = 10, \eta_{\min} = 1 \times 10^{-6}$)
-- **Hardware Platform:** NVIDIA RTX 6000 Ada Generation (50.87 GB VRAM)
+- **Optimizer:** `AdamW` (`lr` = $3 \times 10^{-4}$, `weight_decay` = $1 \times 10^{-4}$)
+- **Learning Rate Scheduler:** `CosineAnnealingLR` ($T_{\max} = 10$, $\eta_{\min} = 1 \times 10^{-6}$)
+- **Hardware Platform:** NVIDIA RTX 6000 Ada Generation
 - **Acceleration:** PyTorch Automatic Mixed Precision (`torch.cuda.amp.autocast()` and `GradScaler()`)
 - **Batch Size:** 32 | **Epochs:** 10
 
