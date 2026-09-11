@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="thumbBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030712" />
+      <stop offset="50%" stop-color="#0b1329" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <!-- Glowing Text Gradient -->
+    <linearGradient id="titleGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+
+    <!-- Tumor Heatmap Radial Gradient -->
+    <radialGradient id="lesionHeat" cx="45%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.95" />
+      <stop offset="25%" stop-color="#f97316" stop-opacity="0.8" />
+      <stop offset="55%" stop-color="#eab308" stop-opacity="0.5" />
+      <stop offset="75%" stop-color="#10b981" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Scan Line Gradient -->
+    <linearGradient id="scanBeam" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0" />
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="glowEffect" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="intenseGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="20" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Cyber Matrix Grid Pattern -->
+    <pattern id="dotPattern" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#334155" fill-opacity="0.35" />
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="500" rx="16" fill="url(#thumbBg)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Tech Dots Grid -->
+  <rect width="800" height="500" rx="16" fill="url(#dotPattern)" />
+
+  <!-- Ambient Light Halos -->
+  <circle cx="530" cy="220" r="160" fill="#38bdf8" fill-opacity="0.12" filter="url(#intenseGlow)" />
+  <circle cx="580" cy="180" r="90" fill="#ef4444" fill-opacity="0.18" filter="url(#intenseGlow)" />
+  <circle cx="150" cy="120" r="140" fill="#818cf8" fill-opacity="0.1" filter="url(#intenseGlow)" />
+
+  <!-- ================= RIGHT / CENTER ICON: BRAIN MRI SCAN & TUMOR LOCALIZATION ================= -->
+  <g transform="translate(430, 40)">
+    <!-- Circular Medical Scanner Outer Ring -->
+    <circle cx="170" cy="170" r="150" fill="#090d1a" stroke="#1e293b" stroke-width="2" />
+    <circle cx="170" cy="170" r="142" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="6 4" stroke-opacity="0.6" />
+    <circle cx="170" cy="170" r="130" fill="#050814" stroke="#0ea5e9" stroke-width="1" stroke-opacity="0.3" />
+
+    <!-- Radar Sweep Coordinates -->
+    <line x1="170" y1="28" x2="170" y2="312" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.25" />
+    <line x1="28" y1="170" x2="312" y2="170" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.25" />
+
+    <!-- Stylized Cranium & Brain Silhouette (Axial Slice Anatomy) -->
+    <!-- Outer Skull / Dural Contour -->
+    <path d="M 170 60 C 230 60, 275 105, 275 170 C 275 235, 235 275, 170 275 C 105 275, 65 235, 65 170 C 65 105, 110 60, 170 60 Z"
+          fill="#0c1527" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.4" />
+
+    <!-- Left Hemisphere Cerebral Sulci & Ventricles -->
+    <path d="M 160 85 C 125 90, 95 125, 95 170 C 95 210, 125 245, 160 250 C 155 220, 140 190, 140 165 C 140 140, 155 110, 160 85 Z"
+          fill="#13233c" stroke="#475569" stroke-width="1.5" />
+    
+    <path d="M 125 130 C 140 140, 140 160, 120 175 C 110 185, 115 205, 135 215"
+          fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.5" />
+
+    <!-- Right Hemisphere (With Abnormality / Lesion Focus) -->
+    <path d="M 180 85 C 215 90, 245 125, 245 170 C 245 210, 215 245, 180 250 C 185 220, 200 190, 200 165 C 200 140, 185 110, 180 85 Z"
+          fill="#13233c" stroke="#475569" stroke-width="1.5" />
+
+    <!-- Central Interhemispheric Fissure & Ventricular System -->
+    <ellipse cx="170" cy="165" rx="5" ry="40" fill="#030712" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.6"/>
+
+    <!-- Dynamic Scanner Laser Bar Passing -->
+    <rect x="50" y="145" width="240" height="35" fill="url(#scanBeam)" />
+
+    <!-- ============ THE ABNORMALITY: GRAD-CAM HEATMAP LESION ============ -->
+    <!-- Heatmap Multi-Layer Glow -->
+    <circle cx="215" cy="145" r="42" fill="url(#lesionHeat)" filter="url(#glowEffect)" />
+    <circle cx="215" cy="145" r="22" fill="#ef4444" fill-opacity="0.75" />
+    <circle cx="212" cy="142" r="10" fill="#fef08a" />
+
+    <!-- AI Bounding Target Reticle (Grad-CAM Spatial HUD) -->
+    <g stroke="#f43f5e" stroke-width="2.5" fill="none">
+      <!-- Reticle Corners -->
+      <path d="M 185 122 L 185 112 L 195 112" />
+      <path d="M 235 112 L 245 112 L 245 122" />
+      <path d="M 185 168 L 185 178 L 195 178" />
+      <path d="M 245 168 L 245 178 L 235 178" />
+    </g>
+
+    <!-- AI Detection Tag Flag -->
+    <rect x="186" y="94" width="76" height="18" rx="4" fill="#f43f5e" />
+    <text x="224" y="103.5" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="900" text-anchor="middle" dominant-baseline="middle">TUMOR DETECTED</text>
+
+    <!-- Scan Status Indicator -->
+    <g transform="translate(68, 290)">
+      <rect width="204" height="26" rx="13" fill="#090d1a" stroke="#10b981" stroke-width="1.2"/>
+      <circle cx="16" cy="13" r="4.5" fill="#10b981" />
+      <text x="110" y="13.5" fill="#a7f3d0" font-family="'Courier New', Courier, monospace" font-size="9.5" font-weight="800" text-anchor="middle" dominant-baseline="middle">LOCALIZATION: CONFIRMED</text>
+    </g>
+  </g>
+
+  <!-- ================= LEFT SIDE: BOLD, MINIMALIST, HIGH-IMPACT TITLE ================= -->
+  <g transform="translate(48, 60)">
+    <!-- Category Pill -->
+    <rect width="210" height="26" rx="13" fill="#1e293b" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.6"/>
+    <circle cx="15" cy="13" r="4" fill="#38bdf8" />
+    <text x="115" y="13.5" fill="#bae6fd" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" letter-spacing="1" text-anchor="middle" dominant-baseline="middle">MEDICAL AI • COMPUTER VISION</text>
+
+    <!-- Main Headline - Bold, Large & Simple -->
+    <text x="0" y="78" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="900" letter-spacing="-1.2">
+      Brain Tumor
+    </text>
+    <text x="0" y="125" fill="url(#titleGlow)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="900" letter-spacing="-0.8">
+      MRI Analysis
+    </text>
+
+    <!-- Clear, Simple Explanation -->
+    <text x="0" y="172" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="500">
+      Classification &amp; Explainable
+    </text>
+    <text x="0" y="196" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700">
+      Lesion Localization System
+    </text>
+
+    <!-- Three High-Impact Badges (Simple & Visual) -->
+    <g transform="translate(0, 230)">
+      <!-- Badge 1: 4 Classes -->
+      <g transform="translate(0, 0)">
+        <rect width="112" height="54" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2"/>
+        <text x="56" y="20" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle" dominant-baseline="middle">DIAGNOSIS</text>
+        <text x="56" y="38" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13.5" font-weight="900" text-anchor="middle" dominant-baseline="middle">4 Classes</text>
+      </g>
+
+      <!-- Badge 2: Accuracy -->
+      <g transform="translate(122, 0)">
+        <rect width="112" height="54" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="1.2"/>
+        <text x="56" y="20" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle" dominant-baseline="middle">ACCURACY</text>
+        <text x="56" y="38" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="900" text-anchor="middle" dominant-baseline="middle">95.69%</text>
+      </g>
+
+      <!-- Badge 3: Grad-CAM -->
+      <g transform="translate(244, 0)">
+        <rect width="112" height="54" rx="10" fill="#0f172a" stroke="#f43f5e" stroke-width="1.2"/>
+        <text x="56" y="20" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" text-anchor="middle" dominant-baseline="middle">EXPLAINABLE</text>
+        <text x="56" y="38" fill="#fb7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" text-anchor="middle" dominant-baseline="middle">Grad-CAM</text>
+      </g>
+    </g>
+
+    <!-- University Attribution Line -->
+    <g transform="translate(0, 310)">
+      <text x="0" y="16" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600">
+        Dept. of Computer Engineering • University of Peradeniya
+      </text>
+    </g>
+  </g>
+</svg>
